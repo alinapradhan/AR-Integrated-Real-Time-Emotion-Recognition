@@ -1,0 +1,61 @@
+# Configuration file for AR-Integrated Real-Time Emotion Recognition
+
+# Dataset Configuration
+DATASET:
+  path: "data/fer2013.csv"
+  kaggle_dataset: "xavier00/fer2013-facial-expression-recognition-dataset"
+  image_size: [48, 48]
+  num_classes: 7
+  emotion_labels:
+    - "Angry"
+    - "Disgust" 
+    - "Fear"
+    - "Happy"
+    - "Sad"
+    - "Surprise"
+    - "Neutral"
+
+# Model Configuration  
+MODEL:
+  architecture: "CNN"
+  input_shape: [48, 48, 1]
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 50
+  validation_split: 0.2
+  test_split: 0.2
+
+# Training Configuration
+TRAINING:
+  early_stopping:
+    monitor: "val_loss"
+    patience: 10
+    restore_best_weights: true
+  reduce_lr:
+    monitor: "val_loss"
+    factor: 0.5
+    patience: 5
+    min_lr: 0.00001
+  save_path: "models/emotion_model.h5"
+
+# Real-time Detection Configuration
+DETECTION:
+  camera_index: 0
+  face_detection_confidence: 0.5
+  frame_width: 640
+  frame_height: 480
+
+# AR Overlay Configuration
+AR:
+  overlay_position: "above_face"
+  confidence_threshold: 0.3
+  show_confidence_bar: true
+  show_particles: true
+  emotion_colors:
+    Angry: [0, 0, 255]     # Red
+    Disgust: [0, 128, 0]   # Green
+    Fear: [128, 0, 128]    # Purple
+    Happy: [0, 255, 255]   # Yellow
+    Sad: [255, 0, 0]       # Blue
+    Surprise: [255, 165, 0] # Orange
+    Neutral: [128, 128, 128] # Gray
